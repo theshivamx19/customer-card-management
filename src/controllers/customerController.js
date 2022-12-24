@@ -57,10 +57,10 @@ const createCustomer = async (req, res) => {
         if (checkCustomerId) {
             return res.status(404).send({ status: false, message: 'Customer id already exists' })
         }
-        if(!status){
+        if (!status) {
             return res.status(400).send({ status: false, message: 'Please enter customer status' })
         }
-        if(!['ACTIVE', 'INACTIVE'].includes(status)){
+        if (!['ACTIVE', 'INACTIVE'].includes(status)) {
             return res.status(400).send({ status: false, message: 'Status must be either ACTIVE/INACTIVE' })
         }
         const customer = await customerModel.create(data)
@@ -71,4 +71,18 @@ const createCustomer = async (req, res) => {
     }
 }
 
-module.exports = {createCustomer}
+const getCustomer = async (req, res) => {
+    try {
+        const customer = await customerModel.find({ status: "INACTIVE" })
+        return res.status(200).send({ status: true, data: customer })
+    }
+    catch (err) {
+        return res.status(500).send({ status: false, message: err.message })
+    }
+}
+
+const deleteCustomer = async (req, res) => {
+
+}
+
+module.exports = { createCustomer, getCustomer }

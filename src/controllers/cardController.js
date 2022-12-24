@@ -36,7 +36,7 @@ const createCard = async (req, res) => {
         // if (!vfy.validName(customerName)) {
         //     return res.status(400).send({ status: false, message: 'Enter valid customer name' })
         // }
-        customerName = checkCustomerId.firstName +" "+ checkCustomerId.lastName
+        customerName = checkCustomerId.firstName + " " + checkCustomerId.lastName
         // if(!status){
         //     return res.status(400).send({ status: false, message: 'Please enter card status' })
         // }
@@ -49,7 +49,7 @@ const createCard = async (req, res) => {
             return res.status(400).send({ status: false, message: 'Please provide vision' })
         }
         // const finalData = {...data, customerName}
-        const card = await cardModel.create({...data, customerName})
+        const card = await cardModel.create({ ...data, customerName })
         return res.status(201).send({ status: true, data: card })
     }
     catch (err) {
@@ -57,4 +57,14 @@ const createCard = async (req, res) => {
     }
 }
 
-module.exports = { createCard }
+const getCards = async (req, res) => {
+    try {
+        const cards = await cardModel.find()
+        return res.status(200).send({ status: true, data: cards })
+    }
+    catch (err) {
+        return res.status(500).send({ status: false, message: err.message })
+    }
+}
+
+module.exports = { createCard, getCards }
