@@ -36,7 +36,7 @@ const createCard = async (req, res) => {
         // if (!vfy.validName(customerName)) {
         //     return res.status(400).send({ status: false, message: 'Enter valid customer name' })
         // }
-        customerName = checkCustomerId.firstName
+        customerName = checkCustomerId.firstName +" "+ checkCustomerId.lastName
         // if(!status){
         //     return res.status(400).send({ status: false, message: 'Please enter card status' })
         // }
