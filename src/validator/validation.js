@@ -10,10 +10,12 @@ const validName = function(name){
 }
 
 const validNumber = function(number){
-    return /^[1-9]{1}[0-9]{9}$/.test(number)
+    return /^[7,8,9]{1}[0-9]{9}$/.test(number)
+    
 }
-const validDateFormat = function(date){
-    return moment(date, 'DD/MM/YYYY', true).isValid()
+const validDateFormat = function(DOB){
+    // return moment(DOB).format('MM/DD/YYYY')
+    return moment(DOB, 'MM/DD/YYYY', true).isValid()
 }
 
 
@@ -26,4 +28,9 @@ const validCustomerId = function(customerId){
     return /^\d{8}$/.test(customerId)
 }
 
-module.exports = {emptyObject, validName, validNumber, validDateFormat, validEmail, validCustomerId}
+const validPassword = function(password){
+    // return /^[a-zA-Z0-9!@#$%^&*]{8,15}$/.test(password)
+    return /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,15}$/.test(password)
+}
+
+module.exports = {emptyObject, validName, validNumber, validDateFormat, validEmail, validCustomerId, validPassword}

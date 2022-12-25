@@ -23,6 +23,12 @@ const customerSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    password : {
+        type : String,
+        required : true,
+        min : 8,
+        max : 15
+    },
     address: {
         type: String,
         required: true,
@@ -31,6 +37,11 @@ const customerSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    cardHolder : {
+        type : String,
+        enum : ['YES', 'NO'],
+        default : 'NO'
     },
     status: {
         type: String,
