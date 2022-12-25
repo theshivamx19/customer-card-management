@@ -53,6 +53,9 @@ const createCustomer = async (req, res) => {
         if (!customerID) {
             return res.status(400).send({ status: false, message: 'Please enter customer id' })
         }
+        if (!vfy.validCustomerId(customerID)) {
+            return res.status(400).send({ status: false, message: 'Please enter 8 digit valid customer id' })
+        }
         const checkCustomerId = await customerModel.findOne({ customerID: customerID })
         if (checkCustomerId) {
             return res.status(404).send({ status: false, message: 'Customer id already exists' })
@@ -73,7 +76,10 @@ const createCustomer = async (req, res) => {
 
 const getCustomer = async (req, res) => {
     try {
-        const customer = await customerModel.find({ status: "INACTIVE" })
+        const customer = await customerModel.find({ status: "ACTIVE" })
+        if (customer.length == 0) {
+            return res.status(404).send({ status: false, message: "No customer found" })
+        }
         return res.status(200).send({ status: true, data: customer })
     }
     catch (err) {
@@ -82,7 +88,23 @@ const getCustomer = async (req, res) => {
 }
 
 const deleteCustomer = async (req, res) => {
-
+    const customerID = req.params.customerID
+    if (customerID.length == 0) {
+        return res.status(400).send({ status: false, message: "Customer unique id is requied" })
+    }
+    if (!vfy.validCustomerId(customerID)) {
+        return res.status(400).send({ status: false, message: "Enter valid 8 digit customer id" })
+    }
+    const customer = await customerModel.findOne({ customerID, status : 'ACTIVE' },
+        {
+            $set: {
+                status: "INACTIVE"
+            }
+        })
+        if(!customer){
+            return res.status(404).send({status : false, message : "Customer not found"})
+        }
+        return res.status(200).send({status : true, message : "Customer deleted successfully"})
 }
 
-module.exports = { createCustomer, getCustomer }
+module.exports = { createCustomer, getCustomer, deleteCustomer }

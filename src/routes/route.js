@@ -7,6 +7,7 @@ const cardController = require('../controllers/cardController')
 //=======================Customer api===================//
 router.post('/createCustomer', customerController.createCustomer)
 router.get('/getCustomer', customerController.getCustomer)
+router.post('/deleteCustomer/:customerID', customerController.deleteCustomer)
 
 //====================Card api=========================//
 router.post('/createCard', cardController.createCard)

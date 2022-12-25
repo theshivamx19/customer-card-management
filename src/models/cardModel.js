@@ -4,7 +4,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 const cardSchema = new mongoose.Schema({
     cardNumber: {
         type: String,
-        required: true,
+        // required: true,
         unique: true
     },
     cardType: {
@@ -24,9 +24,10 @@ const cardSchema = new mongoose.Schema({
     vision: {
         type: String,
     },
-    customerId: {
-        type: ObjectId,
-        ref: 'Customer'
+    customerID: {
+        type: String,
+        ref: 'Customer',
+        required : true
     }
 }, { timestamps: true })
 

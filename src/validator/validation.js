@@ -22,4 +22,8 @@ const validEmail = function(email){
     return emailReg.test(email)
 }
 
-module.exports = {emptyObject, validName, validNumber, validDateFormat, validEmail}
+const validCustomerId = function(customerId){
+    return /^\d{8}$/.test(customerId)
+}
+
+module.exports = {emptyObject, validName, validNumber, validDateFormat, validEmail, validCustomerId}
